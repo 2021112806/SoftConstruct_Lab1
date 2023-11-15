@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:config="https://crnlmchina.github.io/config"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+       https://crnlmchina.github.io/config
+
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://code.alibabatech.com/schema/dubbo ">
+
+
+
+    <!--<util:properties id="configToolkitConfigs" location="classpath:config/application.properties" />-->
+
+    <!--<config:profile connect-str="#{configToolkitConfigs['zk.address']}" root-node="#{configToolkitConfigs['root-node']}"-->
+    <!--version="#{configToolkitConfigs['zk.configs.version']}"/>-->
+
+    <!--<config:group id="messagePushGroup" node="messagePush" />-->
+    <!--<config:group id="jdbcGroup" node="jdbc" />-->
+    <!--<config:group id="redisGroup" node="redis" />-->
+    <!--<config:group id="redisGroup2" node="redis-miss" />-->
+
+    <!--<context:property-placeholder  location="classpath:config/application.properties"></context:property-placeholder>-->
+
+    <!--<import resource="classpath:spring-dubbo.xml"/>
+    <import resource="classpath:spring-mybatis.xml"/>
+    <import resource="classpath:spring-mybatis-sharding.xml"/>
+    <import resource="classpath:spring-redis.xml"/>
+    <import resource="classpath:spring-redis-miss.xml"/>-->
+
+
+</beans>
