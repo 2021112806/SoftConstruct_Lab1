@@ -6,9 +6,6 @@ import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
 
-/**
- * created by meizhimin on 2021/4/22
- */
 public class Publisher extends Platform{
     public Publisher(String name){
         super(name);

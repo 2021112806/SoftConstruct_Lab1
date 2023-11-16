@@ -6,7 +6,7 @@ package com.zdsn.mq.config;
 public class Config {
 
     //MQ端口号
-    public static final int SERVICE_PORT = 9999;
+    public final static int SERVICE_PORT = 9999;
 
     //发布消息
     public final static String PUBLISH = "PUBLISH";

@@ -11,9 +11,6 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * created by meizhimin on 2021/4/22
- */
 public class Subscriber extends User{
 
     public Subscriber(String name){

@@ -10,9 +10,6 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.util.List;
 
-/**
- * created by meizhimin on 2021/4/22
- */
 public class Model extends User{
     public Model(String name){
         super(name);
