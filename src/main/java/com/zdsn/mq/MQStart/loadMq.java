@@ -70,6 +70,5 @@ public class loadMq implements ApplicationRunner {
                 logger.info("无效的选择，请重新输入");
                 break;
         }
-
     }
 }
