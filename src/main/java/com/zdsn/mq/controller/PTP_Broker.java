@@ -1,34 +1,40 @@
 package com.zdsn.mq.controller;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
+import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 
-public class PTP_Broker {
+public class PTP_Broker implements Broker{
     //消息队列存储最大值
     private final static int MAX_SIZE=3;
-    private static final Logger logger = LoggerFactory.getLogger(PTP_Broker.class);
     //保存消息数据的容器
     private static final ArrayBlockingQueue<String> messageQueue=new ArrayBlockingQueue<>(MAX_SIZE);
     // 当前注册的消费者
     private static String registeredConsumer = null;
 
-    //生产消息
-    public static void produce(String msg){
-        if (messageQueue.offer(msg)) {
-            logger.info("消息发送成功，msg："+msg+",暂存队列中的消息数量是:"+messageQueue.size());
-        }else{
-            logger.info("消息处理数据中心数据达到最大负荷，不能继续放入消息");
-        }
+    // 检查当前是否有消费者注册
+    private static boolean isConsumerRegistered(String name) {
+        return registeredConsumer == null || registeredConsumer.equals(name);
     }
 
-    //消费消息
-    public static String consume(String name){
+    @Override
+    public void handlePublish(String platformName, String message) {
+    }
+
+    @Override
+    public void handleSubscribe(String userName, String platformName) {}
+
+    @Override
+    public List<String> handleGet(String userName) {
+        return null;
+    }
+
+    @Override
+    public String handleConsume(String userName) {
         String msg = null;
         if (registeredConsumer == null){
             return null;
         }
-        if (registeredConsumer.equals(name)) {
+        if (registeredConsumer.equals(userName)) {
             msg = messageQueue.poll();
             if (msg != null) {
                 // 消费条件满足时从消息容器中取出一条消息
@@ -42,21 +48,25 @@ public class PTP_Broker {
         return msg;
     }
 
-    // 注册消费者
-    public static void registerConsumer(String name) {
-        if (isConsumerRegistered(name))
-            registeredConsumer = name;
+    @Override
+    public void handleRegister(String userName) {
+        if (isConsumerRegistered(userName))
+            registeredConsumer = userName;
         else
             logger.info("当前已有其他消费者注册，请耐心等待退出");
     }
 
-    // 取消注册消费者
-    public static void unregisterConsumer() {
+    @Override
+    public void handleUnregister() {
         registeredConsumer = null;
     }
 
-    // 检查当前是否有消费者注册
-    private static boolean isConsumerRegistered(String name) {
-        return registeredConsumer == null || registeredConsumer.equals(name);
+    @Override
+    public void handleProduce(String msg) {
+        if (messageQueue.offer(msg)) {
+            logger.info("消息发送成功，msg："+msg+",暂存队列中的消息数量是:"+messageQueue.size());
+        }else{
+            logger.info("消息处理数据中心数据达到最大负荷，不能继续放入消息");
+        }
     }
 }

@@ -8,23 +8,34 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * created by meizhimin on 2021/4/22
  */
-public class Model extends User{
-    public Model(String name){
+public class Subscriber extends User{
+
+    public Subscriber(String name){
         super(name);
     }
 
+    //订阅消息
+    public  void subscribe(String platformName) throws IOException {
+        Socket socket = new Socket(InetAddress.getLocalHost(), Config.SERVICE_PORT);
+        try (PrintWriter out = new PrintWriter(socket.getOutputStream())) {
+            out.println(Config.SUBSCRIBE+"\t"+this.name+"\t"+platformName);
+            out.flush();
+        }
+    }
+
     //获取消息
-    public List<String> get(String platform) throws IOException {
+    public List<String> get() throws IOException {
         Socket socket = new Socket(InetAddress.getLocalHost(), Config.SERVICE_PORT);
         try (BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
              PrintWriter out = new PrintWriter(socket.getOutputStream())) {
             //先发送获取命令
-            out.println(Config.RECEIVE+"\t"+this.name+"\t"+platform);
+            out.println(Config.GET+"\t"+this.name);
             out.flush();
             //得到消息
             String message;
@@ -39,4 +50,3 @@ public class Model extends User{
         }
     }
 }
-

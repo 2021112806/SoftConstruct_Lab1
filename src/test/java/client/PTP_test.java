@@ -18,11 +18,10 @@ public class PTP_test {
     Consumer consumer3=new Consumer("xyq");
 
 
-
     Producer producer1=new Producer("producer1");
     Producer producer2=new Producer("producer2");
     Producer producer3=new Producer("producer3");
-    Producer producer4=new Producer("producer4");
+
     @Test
     public void testPlatform() throws Exception{
         producer1.produce("23号去操场集合");
@@ -37,6 +36,7 @@ public class PTP_test {
         consumer1.register();
         String mes1=consumer1.consume();
         consumer1.unregister();
+
         String mes2=consumer2.consume();
         consumer2.register();
         consumer3.register();

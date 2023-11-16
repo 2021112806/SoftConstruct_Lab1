@@ -1,9 +1,10 @@
 package com.zdsn.mq.MQStart;
 
 import com.zdsn.mq.config.Config;
-import com.zdsn.mq.server.ALL_BrokerServer;
+import com.zdsn.mq.controller.ALL_Broker;
+import com.zdsn.mq.controller.PS_Broker;
+import com.zdsn.mq.controller.PTP_Broker;
 import com.zdsn.mq.server.BrokerServer;
-import com.zdsn.mq.server.PTP_BrokerServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.ApplicationArguments;
@@ -37,7 +38,7 @@ public class loadMq implements ApplicationRunner {
                 try {
                     ServerSocket server1 = new ServerSocket(Config.SERVICE_PORT);
                     while (true) {
-                        ALL_BrokerServer brokerServer = new ALL_BrokerServer(server1.accept());
+                       BrokerServer brokerServer = new BrokerServer(server1.accept(), new ALL_Broker());
                         new Thread(brokerServer).start();
                     }
                 }catch (Exception e){
@@ -48,7 +49,7 @@ public class loadMq implements ApplicationRunner {
                 try {
                     ServerSocket server2 = new ServerSocket(Config.SERVICE_PORT);
                     while (true) {
-                        PTP_BrokerServer brokerServer=new PTP_BrokerServer(server2.accept());
+                        BrokerServer brokerServer=new BrokerServer(server2.accept(), new PTP_Broker());
                         new Thread(brokerServer).start();
                     }
                 }catch (Exception e){
@@ -59,12 +60,15 @@ public class loadMq implements ApplicationRunner {
                 try {
                     ServerSocket server3 = new ServerSocket(Config.SERVICE_PORT);
                     while (true) {
-                        BrokerServer brokerServer = new BrokerServer(server3.accept());
-                        new Thread(brokerServer).start();
+                        BrokerServer PSBrokerServer = new BrokerServer(server3.accept(), new PS_Broker());
+                        new Thread(PSBrokerServer).start();
                     }
                 }catch (Exception e){
                     e.printStackTrace();
                 }
+            default:
+                logger.info("无效的选择，请重新输入");
+                break;
         }
 
     }

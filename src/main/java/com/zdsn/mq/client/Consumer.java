@@ -9,15 +9,9 @@ import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
 
-public class Consumer {
-    private final String name;
-
+public class Consumer extends User{
     public Consumer(String name){
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
+        super(name);
     }
 
     //消费消息ss

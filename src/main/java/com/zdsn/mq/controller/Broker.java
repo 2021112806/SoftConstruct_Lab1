@@ -11,13 +11,13 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * 消息处理中心
  */
-public class Broker {
+public interface Broker {
     // 记录此类产生的logger
-    private static final Logger logger = LoggerFactory.getLogger(Broker.class);
-    public static final Map<String,List<String>> subscribeMap = new ConcurrentHashMap<>();
-    public static final Map<String,List<String>> receivedMessages = new ConcurrentHashMap<>();
+    Logger logger = LoggerFactory.getLogger(Broker.class);
+    Map<String,List<String>> subscribeMap = new ConcurrentHashMap<>();
+    Map<String,List<String>> receivedMessages = new ConcurrentHashMap<>();
 
-    public static void handlePublish(String platformName,String message){
+    default void handlePublish(String platformName, String message){
         // 对于新平台，添加key-value对
         if (!receivedMessages.containsKey(platformName)){
             List<String> messageList = new ArrayList<>();
@@ -32,7 +32,7 @@ public class Broker {
         }
     }
 
-    public static void handleSubscribe(String userName,String platformName){
+    default void handleSubscribe(String userName, String platformName){
         // 对于新平台，添加key-value对
         if (!subscribeMap.containsKey(userName)){
             List<String> platformList = new ArrayList<>();
@@ -47,7 +47,7 @@ public class Broker {
         }
     }
 
-    public static List<String> handleGet(String userName){
+    default List<String> handleGet(String userName){
         List<String> result = new ArrayList<>();
         List<String> platformList = subscribeMap.get(userName);
         for(String platformName:platformList){
@@ -58,5 +58,12 @@ public class Broker {
         }
         return result;
     }
-}
 
+    String handleConsume(String userName);
+
+    void handleRegister(String userName);
+
+    void handleUnregister();
+
+    void handleProduce(String str);
+}

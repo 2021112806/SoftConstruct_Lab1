@@ -1,7 +1,7 @@
 package client;
 
 import com.zdsn.mq.client.Model;
-import com.zdsn.mq.client.Platform;
+import com.zdsn.mq.client.Publisher;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,19 +13,19 @@ import java.util.List;
  */
 public class ALL_test {
 
-    private static final Logger logger = LoggerFactory.getLogger(test.class);
-    private Platform platform_0 = new Platform("Platform_0");
-    private Platform platform_1 = new Platform("Platform_1");
+    private static final Logger logger = LoggerFactory.getLogger(PS_test.class);
+    private Publisher publisher_0 = new Publisher("Platform_0");
+    private Publisher publisher_1 = new Publisher("Platform_1");
     private Model user_0 = new Model("小华");
     private Model user_1 = new Model("小明");
     private Model user_2 = new Model("小红");
 
     @Test
     public void testPlatform() throws Exception{
-        platform_0.produce("23号去操场集合");
-        platform_0.produce("24号有体侧");
-        platform_1.produce("23号去正心开会");
-        platform_1.produce("24号有考试");
+        publisher_0.publish("23号去操场集合");
+        publisher_0.publish("24号有体侧");
+        publisher_1.publish("23号去正心开会");
+        publisher_1.publish("24号有考试");
         logger.info("SEND SUCCESS!");
     }
 

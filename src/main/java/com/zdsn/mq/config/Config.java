@@ -14,6 +14,8 @@ public class Config {
     public final static String SUBSCRIBE = "SUBSCRIBE";
     //获取消息
     public final static String GET = "GET";
+    //全广播获取消息
+    public final static String RECEIVE = "RECEIVE";
 
     //生产消息
     public final static String PRODUCE = "PRODUCE";
